@@ -3,6 +3,7 @@
 1. Download this project to local machine.
 2. Create a new database name "pwi" in MYSQL.
 3. Import project in Spring STS/Eclipse or IntelliJ IDE by using option "Existing maven project".
+4. Change Database "username" and "password" in application.properties file.
 4. Open AppInitializer.Java file to dry-run this project because unit tests not added yet.
 
 Note: After first change the property "hibernate.hbm2ddl.auto = create-drop" to "hibernate.hbm2ddl.auto = update" 
