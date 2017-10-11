@@ -4,7 +4,9 @@
 package com.pwi.dao.impl;
 
 import java.io.Serializable;
+import java.util.List;
 
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.pwi.dao.BaseDAO;
@@ -45,6 +47,15 @@ public class WarehouseDAOImpl extends BaseDAO implements WarehouseDAO, Serializa
 	@Override
 	public void deleteWarehouse(Warehouse warehouse) {
 		delete(warehouse);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Warehouse> getAllWarehousesByCompanyId(Integer companyId) {
+		return getSession().createCriteria(Warehouse.class).add(Restrictions.eq("company.companyId", companyId)).list();
 	}
 
 }

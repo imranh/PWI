@@ -4,6 +4,7 @@
 package com.pwi.services.impl;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -67,6 +68,18 @@ public class WarehouseServiceImpl implements Serializable, WarehouseService {
 			return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
 		} catch (RuntimeException e) {
 			return new ResponseEntity<>("FAILURE: Error occurred while saving data.", HttpStatus.EXPECTATION_FAILED);
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<Warehouse> getAllWarehousesByCompanyId(Integer companyId) {
+		try {
+			return warehouseDAO.getAllWarehousesByCompanyId(companyId);
+		} catch (RuntimeException e) {
+			throw e;
 		}
 	}
 

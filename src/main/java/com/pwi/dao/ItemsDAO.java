@@ -6,6 +6,9 @@ package com.pwi.dao;
 import java.io.Serializable;
 import java.util.List;
 
+import com.pwi.model.Product;
+import com.pwi.model.ProductSKU;
+
 /**
  * @author imran
  *
@@ -34,6 +37,22 @@ public interface ItemsDAO extends Serializable {
 	void deleteItem(Object item);
 	
 	/**
+	 * This method is used to get product by its name
+	 * 
+	 * @param name product name
+	 * @return Product
+	 */
+	Product getProductByName(String name);
+	
+	/**
+	 * This method is used to get ProductSKU by its code
+	 * 
+	 * @param code SKU code
+	 * @return ProductSKU
+	 */
+	ProductSKU getProductSKUByCode(String code);
+	
+	/**
 	 * This method is used to update Quantity of an item for single/multiple warehouses
 	 * 
 	 * @param productId product for which we need to update quantity
@@ -50,7 +69,7 @@ public interface ItemsDAO extends Serializable {
 	 * @param warehousesIds to restrict results to single/multiple warehouses
 	 * @return item's quantity
 	 */
-	Integer viewItemQuantity(Integer productId, List<Integer> warehousesIds);
+	List<Object[]> viewItemQuantity(Integer productId, List<Integer> warehousesIds);
 	
 	/**
 	 * This method is used to get all available sizes of an item

@@ -39,7 +39,7 @@ public class ItemsController implements Serializable {
 	 */
 	@RequestMapping(value = "/addNewProduct", method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<Object> addNewProduct(@RequestBody Product product) {
-		return itemsService.addNewProduct(product);
+		return itemsService.addItem(product);
 	}
 
 	/**
@@ -50,7 +50,7 @@ public class ItemsController implements Serializable {
 	 */
 	@RequestMapping(value = "/updateProduct", method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<Object> updateProduct(@RequestBody Product product) {
-		return itemsService.updateProduct(product);
+		return itemsService.updateItem(product);
 	}
 
 	/**
@@ -61,7 +61,7 @@ public class ItemsController implements Serializable {
 	 */
 	@RequestMapping(value = "/deleteProduct", method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<Object> deleteProduct(@RequestBody Product product) {
-		return itemsService.deleteProduct(product);
+		return itemsService.deleteItem(product);
 	}
 	
 	/**
@@ -72,7 +72,7 @@ public class ItemsController implements Serializable {
 	 */
 	@RequestMapping(value = "/addInventory", method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<Object> addInventory(@RequestBody Inventory inventory) {
-		return itemsService.addInventory(inventory);
+		return itemsService.addItem(inventory);
 	}
 
 	/**
@@ -83,7 +83,7 @@ public class ItemsController implements Serializable {
 	 */
 	@RequestMapping(value = "/updateInventory", method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<Object> updateInventory(@RequestBody Inventory inventory) {
-		return itemsService.updateInventory(inventory);
+		return itemsService.updateItem(inventory);
 	}
 
 }

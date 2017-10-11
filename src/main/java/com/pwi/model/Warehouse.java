@@ -42,7 +42,7 @@ public class Warehouse implements Serializable {
 	private Integer warehouseId;
 	private String warehouseName;
 	private Company company;
-	private List<Product> products;
+	private List<Inventory> inventories;
 	private Date addDate;
 	private Date editDate;
 	private List<Component> components;
@@ -81,12 +81,12 @@ public class Warehouse implements Serializable {
 
 	@OneToMany(fetch = FetchType.LAZY)
 	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
-	public List<Product> getProducts() {
-		return products;
+	public List<Inventory> getInventories() {
+		return inventories;
 	}
 
-	public void setProducts(List<Product> products) {
-		this.products = products;
+	public void setInventories(List<Inventory> inventories) {
+		this.inventories = inventories;
 	}
 
 	@CreationTimestamp

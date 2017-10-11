@@ -4,6 +4,7 @@
 package com.pwi.services;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
@@ -38,4 +39,12 @@ public interface WarehouseService extends Serializable {
 	 * @return SUCCESS/FAILURE
 	 */
 	ResponseEntity<Object> deleteWarehouse(Warehouse warehouse);
+	
+	/**
+	 * This method is used to get all warehouses of a company
+	 * 
+	 * @param companyId to restrict result to a single company
+	 * @return list of warehouses
+	 */
+	List<Warehouse> getAllWarehousesByCompanyId(Integer companyId);
 }

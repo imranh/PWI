@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pwi.dao.ItemsDAO;
-import com.pwi.model.Inventory;
 import com.pwi.model.Product;
+import com.pwi.model.ProductSKU;
 import com.pwi.services.ItemsService;
 
 /**
@@ -37,9 +37,10 @@ public class ItemsServiceImpl implements Serializable, ItemsService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public ResponseEntity<Object> addNewProduct(Product product) {
+	@Transactional
+	public ResponseEntity<Object> addItem(Object object) {
 		try {
-			itemsDAO.addItem(product);
+			itemsDAO.addItem(object);
 			return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
 		} catch (RuntimeException e) {
 			return new ResponseEntity<>("FAILURE: Error occurred while saving data.", HttpStatus.EXPECTATION_FAILED);
@@ -50,9 +51,9 @@ public class ItemsServiceImpl implements Serializable, ItemsService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public ResponseEntity<Object> updateProduct(Product product) {
+	public ResponseEntity<Object> updateItem(Object object) {
 		try {
-			itemsDAO.updateItem(product);
+			itemsDAO.updateItem(object);
 			return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
 		} catch (RuntimeException e) {
 			return new ResponseEntity<>("FAILURE: Error occurred while updating data.", HttpStatus.EXPECTATION_FAILED);
@@ -63,9 +64,9 @@ public class ItemsServiceImpl implements Serializable, ItemsService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public ResponseEntity<Object> deleteProduct(Product product) {
+	public ResponseEntity<Object> deleteItem(Object object) {
 		try {
-			itemsDAO.deleteItem(product);
+			itemsDAO.deleteItem(object);
 			return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
 		} catch (RuntimeException e) {
 			return new ResponseEntity<>("FAILURE: Error occurred while deleting products.", HttpStatus.EXPECTATION_FAILED);
@@ -76,12 +77,11 @@ public class ItemsServiceImpl implements Serializable, ItemsService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public ResponseEntity<Object> addInventory(Inventory inventory) {
+	public Product getProductByName(String name) {
 		try {
-			itemsDAO.addItem(inventory);
-			return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+			return itemsDAO.getProductByName(name);
 		} catch (RuntimeException e) {
-			return new ResponseEntity<>("FAILURE: Error occurred while saving data.", HttpStatus.EXPECTATION_FAILED);
+			throw e;
 		}
 	}
 
@@ -89,9 +89,21 @@ public class ItemsServiceImpl implements Serializable, ItemsService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public ResponseEntity<Object> updateInventory(Inventory inventory) {
+	public ProductSKU getProductSKUByCode(String code) {
 		try {
-			itemsDAO.updateItem(inventory);
+			return itemsDAO.getProductSKUByCode(code);
+		} catch (RuntimeException e) {
+			throw e;
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public ResponseEntity<Object> setItemQuantityForWarehouses(Integer inventoryId, Integer quantity, List<Integer> warehousesIds) {
+		try {
+			itemsDAO.setItemQuantity(inventoryId, quantity, warehousesIds);
 			return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
 		} catch (RuntimeException e) {
 			return new ResponseEntity<>("FAILURE: Error occurred while updating data.", HttpStatus.EXPECTATION_FAILED);
@@ -102,12 +114,19 @@ public class ItemsServiceImpl implements Serializable, ItemsService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public ResponseEntity<Object> setItemQuantityForWarehouses(Integer productId, Integer quantity, List<Integer> warehousesIds) {
+	public ResponseEntity<Object> setItemQuantityForOffices(Integer inventoryId, List<Integer> officesIds) {
+		return null;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<Object[]> viewItemQuantityForWarehouses(Integer inventoryId, List<Integer>  warehousesIds) {
 		try {
-			itemsDAO.setItemQuantity(null,null, warehousesIds);
-			return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+			return itemsDAO.viewItemQuantity(inventoryId, warehousesIds);
 		} catch (RuntimeException e) {
-			return new ResponseEntity<>("FAILURE: Error occurred while updating data.", HttpStatus.EXPECTATION_FAILED);
+			throw e;
 		}
 	}
 
@@ -115,23 +134,7 @@ public class ItemsServiceImpl implements Serializable, ItemsService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public ResponseEntity<Object> setItemQuantityForOffices(List<Integer> officesIds, Product product) {
-		return null;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public List<Product> viewItemQuantityForWarehouses(Integer productId) {
-		return null;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public List<Product> viewItemQuantityForOffices(Integer productId) {
+	public Integer viewItemQuantityForOffices(Integer productId, List<Integer> officesIds) {
 		return null;
 	}
 

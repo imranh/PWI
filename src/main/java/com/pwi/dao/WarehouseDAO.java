@@ -4,6 +4,7 @@
 package com.pwi.dao;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.pwi.model.Warehouse;
 
@@ -35,4 +36,9 @@ public interface WarehouseDAO extends Serializable {
 	 */
 	void deleteWarehouse(Warehouse warehouse);
 
+	/**
+	 * This method is used to get all warehouses of a company
+	 * @return
+	 */
+	List<Warehouse> getAllWarehousesByCompanyId(Integer companyId);
 }

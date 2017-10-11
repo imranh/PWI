@@ -55,7 +55,7 @@ public class Inventory implements Serializable {
 	public void setInventoryId(Integer inventoryId) {
 		this.inventoryId = inventoryId;
 	}
-
+	
 	@OneToMany(fetch = FetchType.LAZY)
 	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 	public List<Product> getProducts() {

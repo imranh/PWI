@@ -43,14 +43,12 @@ public class Product implements Serializable {
 
 	private Integer productId;
 	private String productName;
-	private String productType;
 	private boolean active;
 	private Date addDate;
 	private Date editDate;
 	private Brand brandId;
-	private ProductSKU skuID;
 	private List<Warehouse> warehouses;
-	private Inventory Inventory;
+	private ProductSKU productSKU;
 	
 	@Id
 	@Column(name = "product_id", nullable = false)
@@ -70,15 +68,6 @@ public class Product implements Serializable {
 
 	public void setProductName(String productName) {
 		this.productName = productName;
-	}
-
-	@Column(name = "type")
-	public String getProductType() {
-		return productType;
-	}
-
-	public void setProductType(String productType) {
-		this.productType = productType;
 	}
 
 	@Column(name = "is_active")
@@ -122,17 +111,6 @@ public class Product implements Serializable {
 	public void setEditDate(Date editDate) {
 		this.editDate = editDate;
 	}
-
-	@OneToOne(fetch = FetchType.LAZY)
-	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
-	@JoinColumn(name = "product_sku_id", referencedColumnName = "sku_id", nullable = false)
-	public ProductSKU getSkuID() {
-		return skuID;
-	}
-
-	public void setSkuID(ProductSKU skuID) {
-		this.skuID = skuID;
-	}
 	
 	@OneToMany(fetch = FetchType.LAZY)
 	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
@@ -144,17 +122,15 @@ public class Product implements Serializable {
 		this.warehouses = warehouses;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER)
 	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
-	@JoinColumn(name = "inventory_id", referencedColumnName = "inventory_id")
-	public Inventory getInventory() {
-		return Inventory;
+	@JoinColumn(name = "sku_id", referencedColumnName = "sku_id")
+	public ProductSKU getProductSKU() {
+		return productSKU;
 	}
 
-	public void setInventory(Inventory inventory) {
-		Inventory = inventory;
+	public void setProductSKU(ProductSKU productSKU) {
+		this.productSKU = productSKU;
 	}
-
-	
 	
 }
